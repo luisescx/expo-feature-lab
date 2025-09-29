@@ -8,7 +8,43 @@ module.exports = {
   ],
   presets: [require("nativewind/preset")],
   theme: {
-    extend: {},
+    extend: {
+      // fontFamily: {
+      //   poppins: platformSelect({
+      //     ios: "Poppins",
+      //     android: "Poppins_300Light",
+      //     default: "Poppins",
+      //   }),
+      // },
+      colors: {
+        light: {
+          primary: "#2563EB",
+          secondary: "#7C3AED",
+          tertiary: "#0D9488",
+          success: "#16A34A",
+          warning: "#EAB308",
+          error: "#DC2626",
+          neutral100: "#111827",
+          neutral200: "#374151",
+          neutral300: "#6B7280",
+          background: "#F9FAFB",
+          surface: "#FFFFFF",
+        },
+        dark: {
+          primary: "#1D4ED8",
+          secondary: "#9333EA",
+          tertiary: "#10B981",
+          success: "#22C55E",
+          warning: "#FACC15",
+          error: "#EF4444",
+          neutral100: "#F3F4F6",
+          neutral200: "#E5E7EB",
+          neutral300: "#9CA3AF",
+          background: "#0F172A",
+          surface: "#1E293B",
+        },
+      },
+    },
   },
   plugins: [],
 };
