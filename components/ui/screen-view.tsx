@@ -36,7 +36,7 @@ export function ScreenView({
   return (
     <SafeAreaView
       className={view({
-        theme: theme,
+        theme,
         spacing: themedSpacing,
         class: className,
       })}
