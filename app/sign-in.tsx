@@ -1,8 +1,8 @@
 import LabLogo from "@/assets/images/expo-feature-lab-logo.png";
-import { ScreenView, ThemedText } from "@/components/ui";
+import { Button, ScreenView, ThemedText } from "@/components/ui";
 import { useThemeStore } from "@/stores/theme";
 import { Image } from "expo-image";
-import { Platform, Switch, Text, View } from "react-native";
+import { Switch, View } from "react-native";
 
 export default function SignIn() {
   const theme = useThemeStore((state) => state.theme);
@@ -20,46 +20,28 @@ export default function SignIn() {
           }}
         />
 
-        <Text
-          className="text-2xl text-dark-neutral200"
-          style={{
-            fontFamily: Platform.select({
-              android: "Poppins_600SemiBold",
-              ios: "Poppins",
-            }),
-            // fontWeight: "700",
-          }}
-        >
+        <ThemedText type="titleSemi" className="text-2xl">
           Expo Feature Lab
-        </Text>
+        </ThemedText>
       </View>
 
       <View className="items-center text-center">
-        <ThemedText
-          // className="mb-2 text-3xl text-dark-neutral200"
-          // style={{
-          //   fontFamily: Platform.select({
-          //     android: "Poppins_700Bold",
-          //     ios: "Poppins",
-          //   }),
-          // }}
-          type="title"
-          className="mb-2"
-        >
+        <ThemedText type="title" className="mb-2">
           Welcome
         </ThemedText>
 
-        <Text
-          className="mb-6 text-center text-xl text-dark-neutral200"
-          style={{
-            fontFamily: Platform.select({
-              android: "Poppins_400Regular",
-              ios: "Poppins",
-            }),
-          }}
-        >
+        <ThemedText className="mb-6" type="subtitle">
           Please login to your account
-        </Text>
+        </ThemedText>
+      </View>
+
+      <View className="w-full items-center justify-center">
+        <Button className="mb-4 w-[85%]" colorType="primary">
+          Login
+        </Button>
+        <Button className="mb-4 w-[85%]" colorType="primary">
+          Login
+        </Button>
       </View>
     </ScreenView>
   );

@@ -1,10 +1,20 @@
 import { useThemeStore } from "@/stores/theme";
 import { useMemo } from "react";
-import { TouchableOpacity, TouchableOpacityProps } from "react-native";
+import { Pressable, TouchableOpacityProps, View } from "react-native";
 import { tv } from "tailwind-variants";
 
 import { ButtonLoading } from "./button-loading";
+import { IconColor, IconNameProps, IconSymbol } from "./icon-symbol";
+import shadows from "./shadows";
 import { ThemedText } from "./themed-text";
+
+type ButtonColorProps =
+  | "primary"
+  | "secondary"
+  | "success"
+  | "error"
+  | "warning"
+  | "surface";
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -12,17 +22,12 @@ type ButtonProps = {
   width?: "full" | "half";
   isLoading?: boolean;
   type?: "solid" | "outlined";
-  colorType?:
-    | "primary"
-    | "secondary"
-    | "success"
-    | "error"
-    | "warning"
-    | "surface";
+  colorType?: ButtonColorProps;
+  iconName?: IconNameProps;
 } & TouchableOpacityProps;
 
 const solidBaseButton = tv({
-  base: "w-full flex-row items-center justify-center rounded-lg disabled:opacity-70",
+  base: "w-full flex-row items-center justify-center rounded-lg active:opacity-70 disabled:opacity-70",
   variants: {
     size: {
       sm: "p-2",
@@ -129,7 +134,7 @@ const darkSolidLabel = tv({
 });
 
 const outlinedBaseButton = tv({
-  base: "w-full flex-row items-center justify-center rounded-lg bg-transparent disabled:opacity-70",
+  base: "w-full flex-row items-center justify-center rounded-lg bg-transparent active:opacity-70 disabled:opacity-50",
   variants: {
     size: {
       sm: "p-2",
@@ -246,6 +251,8 @@ const Button = ({
   isLoading = false,
   children,
   className,
+  iconName,
+  style,
   ...rest
 }: ButtonProps) => {
   const theme = useThemeStore((state) => state.theme);
@@ -283,14 +290,14 @@ const Button = ({
   }, [theme, type]);
 
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
+    <Pressable
       className={renderTvButton.button({
         size,
         colorType,
         class: className,
       })}
       hitSlop={8}
+      style={[type !== "outlined" && shadows.s1, style]}
       {...rest}
     >
       {!!isLoading && (
@@ -303,17 +310,32 @@ const Button = ({
       )}
 
       {!isLoading && (
-        <ThemedText
-          className={renderTvButton.label({
-            colorType,
-            size,
-          })}
-          type="titleSemi"
-        >
-          {children}
-        </ThemedText>
+        <>
+          <ThemedText
+            className={renderTvButton.label({
+              colorType,
+              size,
+            })}
+            type="titleSemi"
+          >
+            {children}
+          </ThemedText>
+
+          {!!iconName && (
+            <View className="absolute right-4 ml-4">
+              <IconSymbol
+                color={
+                  renderTvButton.loadingColor({
+                    colorType,
+                  }) as IconColor
+                }
+                name={iconName}
+              />
+            </View>
+          )}
+        </>
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
