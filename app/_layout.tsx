@@ -3,16 +3,19 @@ import { useAuthStore } from "@/stores/auth";
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
+import { useThemeStore } from "@/stores/theme";
 import "react-native-reanimated";
 import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const theme = useThemeStore((state) => state.theme);
+
   return (
     <Providers>
       <RootNavigator />
-      <StatusBar style="auto" />
+      <StatusBar style={theme === "light" ? "dark" : "light"} />
     </Providers>
   );
 }

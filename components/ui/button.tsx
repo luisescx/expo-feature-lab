@@ -297,7 +297,7 @@ const Button = ({
         class: className,
       })}
       hitSlop={8}
-      style={[type !== "outlined" && shadows.s1, style]}
+      style={[type !== "outlined" && shadows.s2, style]}
       {...rest}
     >
       {!!isLoading && (

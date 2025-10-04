@@ -1,5 +1,5 @@
 import { customColors, CustomTheme } from "@/tailwind.config";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { ComponentProps } from "react";
 import { type StyleProp, type TextStyle } from "react-native";
 import colors from "tailwindcss/colors";
@@ -16,7 +16,7 @@ type CustomColor = {
 
 export type IconColor = `text-${TailwindColor}` | `text-${CustomColor}`;
 
-export type IconNameProps = ComponentProps<typeof MaterialIcons>["name"];
+export type IconNameProps = ComponentProps<typeof AntDesign>["name"];
 
 type IConSymbolProps = {
   name: IconNameProps;
@@ -41,7 +41,7 @@ function resolveTailwindColor(color?: IconColor): string | undefined {
 
 export function IconSymbol({ name, size = 24, color, style }: IConSymbolProps) {
   return (
-    <MaterialIcons
+    <AntDesign
       color={resolveTailwindColor(color)}
       size={size}
       name={name}
