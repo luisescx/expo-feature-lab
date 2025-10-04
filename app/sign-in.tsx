@@ -1,16 +1,68 @@
 import LabLogo from "@/assets/images/expo-feature-lab-logo.png";
-import { Button, ScreenView, ThemedText } from "@/components/ui";
-import { useThemeStore } from "@/stores/theme";
+import {
+  Button,
+  Input,
+  ScrollViewThemed,
+  ThemedText,
+  ThemeToggle,
+} from "@/components/ui";
+import { useAuthStore } from "@/stores/auth";
 import { Image } from "expo-image";
-import { Switch, View } from "react-native";
+import { useCallback, useRef, useState } from "react";
+import { Pressable, TextInput, View } from "react-native";
+import { z } from "zod";
+
+const userSchema = z.object({
+  email: z.string().email("Please enter a valid email"),
+  password: z
+    .string()
+    .min(5, "Password must have at least 5 characters")
+    .max(10, "Password must have a maximum of 10 characters"),
+});
+
+type UserSchema = z.infer<typeof userSchema>;
 
 export default function SignIn() {
-  const theme = useThemeStore((state) => state.theme);
-  const toggleTheme = useThemeStore((state) => state.toggleTheme);
+  const [form, setForm] = useState<UserSchema>({ email: "", password: "" });
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof UserSchema, string>>
+  >({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const emailRef = useRef<TextInput>(null);
+  const passwordRef = useRef<TextInput>(null);
+
+  const handleSignIn = useAuthStore((state) => state.handleSignIn);
+
+  const handleLogin = useCallback(async () => {
+    setErrors({});
+
+    const result = userSchema.safeParse(form);
+
+    if (!result?.success) {
+      const fieldErrors: Record<string, string> = {};
+
+      result.error.errors.forEach((err) => {
+        const field = err.path[0];
+        fieldErrors[field] = err.message;
+      });
+
+      setErrors(fieldErrors);
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      await handleSignIn();
+    } catch {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }, [form, handleSignIn]);
 
   return (
-    <ScreenView>
-      <Switch value={theme === "dark"} onValueChange={toggleTheme} />
+    <ScrollViewThemed className="w-full">
       <View className="my-8 flex-row items-center justify-center">
         <Image
           source={LabLogo}
@@ -25,24 +77,87 @@ export default function SignIn() {
         </ThemedText>
       </View>
 
-      <View className="items-center text-center">
-        <ThemedText type="title" className="mb-2">
-          Welcome
-        </ThemedText>
+      <View className="w-full items-center">
+        <View className={`mb-16 w-[85%] items-center text-center`}>
+          <ThemedText type="title" className="mb-2">
+            Welcome
+          </ThemedText>
 
-        <ThemedText className="mb-6" type="subtitle">
-          Please login to your account
-        </ThemedText>
-      </View>
+          <ThemedText type="subtitle">Please login to your account</ThemedText>
+        </View>
 
-      <View className="w-full items-center justify-center">
-        <Button className="mb-4 w-[85%]" colorType="primary">
-          Login
-        </Button>
-        <Button className="mb-4 w-[85%]" colorType="primary">
-          Login
-        </Button>
+        <View className={"w-[85%]"}>
+          <Input
+            ref={emailRef}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            returnKeyType="next"
+            label="Email"
+            placeholder="Email"
+            value={form.email}
+            onChangeText={(text) => setForm((p) => ({ ...p, email: text }))}
+            hasErrorValidation
+            onSubmitEditing={() => passwordRef.current?.focus()}
+            fieldHasError={!!errors.email}
+            errorMessage={errors.email}
+          />
+
+          <Input
+            ref={passwordRef}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            returnKeyType="send"
+            label="Password"
+            placeholder="Password"
+            textContentType="password"
+            value={form.password}
+            onChangeText={(text) => setForm((p) => ({ ...p, password: text }))}
+            onSubmitEditing={handleLogin}
+            hasErrorValidation
+            fieldHasError={!!errors.password}
+            errorMessage={errors.password}
+          />
+
+          <Pressable
+            className="mb-6 self-end active:opacity-70"
+            onPress={() => {
+              //
+            }}
+            hitSlop={8}
+          >
+            <ThemedText type="link">Forgot Password?</ThemedText>
+          </Pressable>
+
+          <Button
+            className="mb-6"
+            colorType="primary"
+            disabled={isLoading}
+            isLoading={isLoading}
+            onPress={handleLogin}
+          >
+            Login
+          </Button>
+
+          <View className="flex-row items-center justify-center">
+            <ThemedText>Don&apos;t have an account?</ThemedText>
+            <Pressable
+              className="active:opacity-70"
+              onPress={() => {
+                //
+              }}
+              hitSlop={8}
+            >
+              <ThemedText type="link" className="pl-2 text-base">
+                Sign up
+              </ThemedText>
+            </Pressable>
+          </View>
+        </View>
+
+        <View className="mt-10">
+          <ThemeToggle />
+        </View>
       </View>
-    </ScreenView>
+    </ScrollViewThemed>
   );
 }
