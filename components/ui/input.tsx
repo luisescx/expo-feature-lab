@@ -22,6 +22,10 @@ type InputProps = {
   fieldHasError?: boolean;
 } & TextInputProps;
 
+const inputContainer = tv({
+  base: "w-full",
+});
+
 const textInputField = tv({
   base: "flex-1 p-4",
   variants: {
@@ -53,6 +57,7 @@ const Input = React.forwardRef<TextInput, InputProps>(
       style,
       textContentType,
       onBlur,
+      className,
       ...rest
     },
     ref,
@@ -80,7 +85,11 @@ const Input = React.forwardRef<TextInput, InputProps>(
     );
 
     return (
-      <View className="w-full">
+      <View
+        className={inputContainer({
+          className,
+        })}
+      >
         {!!label && (
           <View className="mb-1 flex-row">
             <ThemedText className="text-lg">{label}</ThemedText>

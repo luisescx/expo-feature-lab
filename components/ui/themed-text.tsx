@@ -40,7 +40,7 @@ export function ThemedText({
       className={themedText({
         type,
         theme,
-        class: `${type === "link" && theme === "light" ? "text-light-link" : ""} ${type === "link" && theme === "dark" ? "text-dark-link" : ""} ${className}`,
+        class: `${type === "link" && theme === "light" ? "text-light-link active:text-light-link/70" : ""} ${type === "link" && theme === "dark" ? "text-dark-link active:text-dark-link/70" : ""} ${className}`,
       })}
       style={[
         type === "base" ? styles.base : undefined,
