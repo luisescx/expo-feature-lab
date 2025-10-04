@@ -25,8 +25,8 @@ const view = tv({
   base: "flex-grow",
   variants: {
     spacing: {
-      sm: "p-1",
-      md: "p-2",
+      sm: "p-2",
+      md: "p-3",
       lg: "p-4",
     },
   },

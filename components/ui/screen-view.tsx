@@ -15,8 +15,8 @@ const view = tv({
       dark: "bg-dark-background",
     },
     spacing: {
-      sm: "p-1",
-      md: "p-2",
+      sm: "p-2",
+      md: "p-3",
       lg: "p-4",
     },
   },
