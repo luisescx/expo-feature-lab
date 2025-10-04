@@ -3,10 +3,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export enum LocalStorageEnum {
   customTheme = "@expoFeatureLab:customTheme",
+  userAuth = "@expoFeatureLab:userAuth",
 }
 
 interface LocalStorageTypes {
   [LocalStorageEnum.customTheme]: ThemeStates;
+  [LocalStorageEnum.userAuth]: boolean;
 }
 
 export const LocalStorageService = {
