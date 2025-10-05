@@ -54,7 +54,8 @@
             "node_modules/@expo-google-fonts/poppins/700Bold/Poppins_700Bold.ttf"
           ]
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true,
