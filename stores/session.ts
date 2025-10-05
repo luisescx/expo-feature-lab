@@ -1,14 +1,14 @@
 import { LocalStorageEnum, LocalStorageService } from "@/utils/storage";
 import { create } from "zustand";
 
-type AuthStore = {
+type SessionStore = {
   setIsSigned: (value: boolean) => void;
   isSigned: boolean;
   handleSignIn: () => Promise<void>;
   handleLogout: () => Promise<void>;
 };
 
-export const useAuthStore = create<AuthStore>((set) => ({
+export const useSessionStore = create<SessionStore>((set) => ({
   isSigned: false,
   setIsSigned: (value) => set({ isSigned: value }),
   handleSignIn: async () => {
