@@ -15,7 +15,7 @@ type ThemeStore = {
   setIsUsingSystemTheme: (value: boolean) => void;
 };
 
-export const useThemeStore = create<ThemeStore>((set, get) => ({
+export const useThemeStore = create<ThemeStore>((set) => ({
   theme: "light",
   isUsingSystemTheme: true,
   setIsUsingSystemTheme: (isUsingSystemTheme) => set({ isUsingSystemTheme }),

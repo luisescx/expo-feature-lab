@@ -1,5 +1,5 @@
 import { Providers } from "@/contexts";
-import { useAuthStore } from "@/stores/auth";
+import { useSessionStore } from "@/stores/session";
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
@@ -21,7 +21,7 @@ export default function RootLayout() {
 }
 
 function RootNavigator() {
-  const isSigned = useAuthStore((state) => state.isSigned);
+  const isSigned = useSessionStore((state) => state.isSigned);
 
   return (
     <Stack>

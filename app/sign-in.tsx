@@ -6,18 +6,20 @@ import {
   ThemedText,
   ThemeToggle,
 } from "@/components/ui";
-import { useAuthStore } from "@/stores/auth";
+import { useTranslation } from "@/hooks/useTranslation";
+import { useLanguageStore } from "@/stores/language";
+import { useSessionStore } from "@/stores/session";
 import { Image } from "expo-image";
 import { useCallback, useRef, useState } from "react";
-import { Pressable, TextInput, View } from "react-native";
+import { Pressable, Switch, TextInput, View } from "react-native";
 import { z } from "zod";
 
 const userSchema = z.object({
-  email: z.string().email("Please enter a valid email"),
+  email: z.string().email({ message: "invalidEmail" }),
   password: z
     .string()
-    .min(5, "Password must have at least 5 characters")
-    .max(10, "Password must have a maximum of 10 characters"),
+    .min(5, { message: "passwordMin" })
+    .max(10, { message: "passwordMax" }),
 });
 
 type UserSchema = z.infer<typeof userSchema>;
@@ -32,7 +34,8 @@ export default function SignIn() {
   const emailRef = useRef<TextInput>(null);
   const passwordRef = useRef<TextInput>(null);
 
-  const handleSignIn = useAuthStore((state) => state.handleSignIn);
+  const handleSignIn = useSessionStore((state) => state.handleSignIn);
+  const { translation, language } = useTranslation();
 
   const handleLogin = useCallback(async () => {
     setErrors({});
@@ -61,8 +64,19 @@ export default function SignIn() {
     }
   }, [form, handleSignIn]);
 
+  const setLanguage = useLanguageStore((state) => state.setLanguage);
+
+  const handleLanguage = useCallback(async () => {
+    await setLanguage({
+      language: language === "pt" ? "en" : "pt",
+      saveOnStorage: true,
+    });
+  }, [language, setLanguage]);
+
   return (
     <ScrollViewThemed className="w-full">
+      <Switch onChange={handleLanguage} />
+
       <View className="my-8 flex-row items-center justify-center">
         <Image
           source={LabLogo}
@@ -80,10 +94,13 @@ export default function SignIn() {
       <View className="w-full items-center">
         <View className={`mb-16 w-[85%] items-center text-center`}>
           <ThemedText type="title" className="mb-2">
-            Welcome
+            {translation("login.title")}
           </ThemedText>
 
-          <ThemedText type="subtitle">Please login to your account</ThemedText>
+          <ThemedText type="subtitle">
+            {" "}
+            {translation("login.subtitle")}
+          </ThemedText>
         </View>
 
         <View className={"w-[85%]"}>
@@ -92,14 +109,16 @@ export default function SignIn() {
             keyboardType="email-address"
             autoCapitalize="none"
             returnKeyType="next"
-            label="Email"
-            placeholder="Email"
+            label={translation("login.emailLabel")}
+            placeholder={translation("login.emailLabel")}
             value={form.email}
             onChangeText={(text) => setForm((p) => ({ ...p, email: text }))}
             hasErrorValidation
             onSubmitEditing={() => passwordRef.current?.focus()}
             fieldHasError={!!errors.email}
-            errorMessage={errors.email}
+            errorMessage={
+              errors.email ? translation(`login.errors.${errors.email}`) : null
+            }
           />
 
           <Input
@@ -107,15 +126,19 @@ export default function SignIn() {
             keyboardType="email-address"
             autoCapitalize="none"
             returnKeyType="send"
-            label="Password"
-            placeholder="Password"
+            label={translation("login.passwordLabel")}
+            placeholder={translation("login.passwordLabel")}
             textContentType="password"
             value={form.password}
             onChangeText={(text) => setForm((p) => ({ ...p, password: text }))}
             onSubmitEditing={handleLogin}
             hasErrorValidation
             fieldHasError={!!errors.password}
-            errorMessage={errors.password}
+            errorMessage={
+              errors.password
+                ? translation(`login.errors.${errors.password}`)
+                : null
+            }
           />
 
           <Pressable
@@ -125,7 +148,9 @@ export default function SignIn() {
             }}
             hitSlop={8}
           >
-            <ThemedText type="link">Forgot Password?</ThemedText>
+            <ThemedText type="link">
+              {translation("login.forgotPassword")}
+            </ThemedText>
           </Pressable>
 
           <Button
@@ -135,11 +160,11 @@ export default function SignIn() {
             isLoading={isLoading}
             onPress={handleLogin}
           >
-            Login
+            {translation("login.loginButton")}
           </Button>
 
           <View className="flex-row items-center justify-center">
-            <ThemedText>Don&apos;t have an account?</ThemedText>
+            <ThemedText> {translation("login.noAccount")}</ThemedText>
             <Pressable
               className="active:opacity-70"
               onPress={() => {
@@ -148,7 +173,7 @@ export default function SignIn() {
               hitSlop={8}
             >
               <ThemedText type="link" className="pl-2 text-base">
-                Sign up
+                {translation("login.signUp")}
               </ThemedText>
             </Pressable>
           </View>
