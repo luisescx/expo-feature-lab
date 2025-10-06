@@ -131,7 +131,7 @@ const Input = React.forwardRef<TextInput, InputProps>(
               className="pr-4 active:opacity-50"
             >
               <IconSymbol
-                name={!showPassword ? "eye" : "eye-invisible"}
+                name={!showPassword ? "eye-invisible" : "eye"}
                 color={
                   clsx({
                     "text-light-neutral100": theme === "light" && isActive,

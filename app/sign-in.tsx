@@ -123,12 +123,13 @@ export default function SignIn() {
 
           <Input
             ref={passwordRef}
-            keyboardType="email-address"
+            keyboardType="default"
             autoCapitalize="none"
             returnKeyType="send"
             label={translation("login.passwordLabel")}
             placeholder={translation("login.passwordLabel")}
             textContentType="password"
+            secureTextEntry
             value={form.password}
             onChangeText={(text) => setForm((p) => ({ ...p, password: text }))}
             onSubmitEditing={handleLogin}
