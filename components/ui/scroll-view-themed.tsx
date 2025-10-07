@@ -1,3 +1,8 @@
+import {
+  EdgesArray,
+  ThemedSpacing,
+  useThemedInsets,
+} from "@/hooks/use-themed-insets";
 import { useThemeStore } from "@/stores/theme";
 import { PropsWithChildren } from "react";
 import { type ScrollViewProps } from "react-native";
@@ -6,9 +11,10 @@ import { Edges, SafeAreaView } from "react-native-safe-area-context";
 import { tv } from "tailwind-variants";
 
 export type ThemedViewProps = ScrollViewProps & {
-  themedSpacing?: "sm" | "md" | "lg";
+  themedSpacing?: ThemedSpacing;
   children: PropsWithChildren;
   edges?: Edges;
+  addInsets?: EdgesArray;
 };
 
 const safeArea = tv({
@@ -31,7 +37,7 @@ const view = tv({
     },
   },
   defaultVariants: {
-    spacing: "sm",
+    spacing: "md",
     theme: "light",
   },
 });
@@ -40,10 +46,14 @@ export function ScrollViewThemed({
   themedSpacing = "md",
   className,
   children,
-  edges = ["top", "bottom", "right", "left"],
+  edges = [],
+  addInsets = [],
+  style,
   ...rest
 }: ThemedViewProps) {
   const theme = useThemeStore((state) => state.theme);
+
+  const styleInsets = useThemedInsets(themedSpacing, addInsets);
 
   return (
     <SafeAreaView
@@ -61,6 +71,7 @@ export function ScrollViewThemed({
           spacing: themedSpacing,
           class: className,
         })}
+        contentContainerStyle={[{ ...styleInsets }, style]}
         {...rest}
       >
         {children}

@@ -1,10 +1,13 @@
+import { EdgesArray, useThemedInsets } from "@/hooks/use-themed-insets";
 import { useThemeStore } from "@/stores/theme";
 import { type ViewProps } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Edges, SafeAreaView } from "react-native-safe-area-context";
 import { tv } from "tailwind-variants";
 
 export type ThemedViewProps = ViewProps & {
   themedSpacing?: "sm" | "md" | "lg";
+  edges?: Edges;
+  addInsets?: EdgesArray;
 };
 
 const view = tv({
@@ -21,7 +24,7 @@ const view = tv({
     },
   },
   defaultVariants: {
-    spacing: "sm",
+    spacing: "md",
     theme: "light",
   },
 });
@@ -29,9 +32,13 @@ const view = tv({
 export function ScreenView({
   themedSpacing = "md",
   className,
+  edges = [],
+  addInsets = [],
+  style,
   ...rest
 }: ThemedViewProps) {
   const theme = useThemeStore((state) => state.theme);
+  const styleInsets = useThemedInsets(themedSpacing, ["bottom"]);
 
   return (
     <SafeAreaView
@@ -40,6 +47,7 @@ export function ScreenView({
         spacing: themedSpacing,
         class: className,
       })}
+      style={[{ ...styleInsets }, style]}
       {...rest}
     />
   );
