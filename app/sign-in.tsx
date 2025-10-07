@@ -6,12 +6,11 @@ import {
   ThemedText,
   ThemeToggle,
 } from "@/components/ui";
-import { useTranslation } from "@/hooks/useTranslation";
-import { useLanguageStore } from "@/stores/language";
+import { useTranslation } from "@/hooks/use-translation";
 import { useSessionStore } from "@/stores/session";
 import { Image } from "expo-image";
 import { useCallback, useRef, useState } from "react";
-import { Pressable, Switch, TextInput, View } from "react-native";
+import { Pressable, TextInput, View } from "react-native";
 import { z } from "zod";
 
 const userSchema = z.object({
@@ -35,7 +34,7 @@ export default function SignIn() {
   const passwordRef = useRef<TextInput>(null);
 
   const handleSignIn = useSessionStore((state) => state.handleSignIn);
-  const { translation, language } = useTranslation();
+  const { translation } = useTranslation();
 
   const handleLogin = useCallback(async () => {
     setErrors({});
@@ -64,19 +63,8 @@ export default function SignIn() {
     }
   }, [form, handleSignIn]);
 
-  const setLanguage = useLanguageStore((state) => state.setLanguage);
-
-  const handleLanguage = useCallback(async () => {
-    await setLanguage({
-      language: language === "pt" ? "en" : "pt",
-      saveOnStorage: true,
-    });
-  }, [language, setLanguage]);
-
   return (
-    <ScrollViewThemed className="w-full">
-      <Switch onChange={handleLanguage} />
-
+    <ScrollViewThemed className="w-full" edges={["top"]} addInsets={["bottom"]}>
       <View className="my-8 flex-row items-center justify-center">
         <Image
           source={LabLogo}
