@@ -1,49 +1,21 @@
-import { Tabs } from "expo-router";
+import { Header } from "@/components/ui";
+import { NativeStackHeaderProps } from "@react-navigation/native-stack";
+import { Stack } from "expo-router";
 import React from "react";
 
-import { HapticTab } from "@/components/haptic-tab";
-import { Colors } from "@/constants/theme";
-import { useColorScheme } from "@/hooks/use-color-scheme";
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default function AppLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarHideOnKeyboard: true,
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}
-    >
-      <Tabs.Screen
-        name="index"
+    <Stack initialRouteName="(tabs)">
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="to-do-list"
         options={{
-          title: "Home",
-          // tabBarIcon: ({ color }) => (
-          //   <IconSymbol size={28} name="home" color={color} />
-          // ),
+          title: "To Do List",
+          header: (props: NativeStackHeaderProps) => (
+            <Header {...props} hasGoBackButton />
+          ),
         }}
       />
-      <Tabs.Screen
-        name="design-system"
-        options={{
-          title: "DS",
-          // tabBarIcon: ({ color }) => (
-          //   <IconSymbol size={28} name="home" color={color} />
-          // ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: "Explore",
-          // tabBarIcon: ({ color }) => (
-          //   <IconSymbol size={28} name="home" color={color} />
-          // ),
-        }}
-      />
-    </Tabs>
+    </Stack>
   );
 }
