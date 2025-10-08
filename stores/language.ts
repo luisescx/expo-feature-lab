@@ -2,7 +2,7 @@ import i18n from "@/i18n";
 import { LocalStorageEnum, LocalStorageService } from "@/utils/storage";
 import { create } from "zustand";
 
-type SetLanguage = {
+export type SetLanguage = {
   language: string;
   saveOnStorage: boolean;
 };
