@@ -4,17 +4,17 @@ import { type TouchableOpacityProps, View } from "react-native";
 import { Card, ThemedText } from "../ui";
 import { IconNameProps, IconSymbol } from "../ui/icon-symbol";
 
-type TaskCardProps = {
+type HomeCardProps = {
   iconName: IconNameProps;
   title: string;
 } & TouchableOpacityProps;
 
-export function TaskCard({
+export function HomeCard({
   title,
   iconName,
   className,
   ...rest
-}: TaskCardProps) {
+}: HomeCardProps) {
   const theme = useThemeStore((state) => state.theme);
 
   return (

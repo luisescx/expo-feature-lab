@@ -1,6 +1,7 @@
 import { TabBar } from "@/components/tab-bar";
 import { Header } from "@/components/ui";
 import { IconColor, IconSymbol } from "@/components/ui/icon-symbol";
+import { useTranslation } from "@/hooks/use-translation";
 import { ThemeStates, useThemeStore } from "@/stores/theme";
 import { customColors } from "@/tailwind.config";
 import {
@@ -44,6 +45,7 @@ export default function TabLayout() {
 
   const theme = useThemeStore((state) => state.theme);
   const insets = useSafeAreaInsets();
+  const { translation } = useTranslation();
 
   const handleTabChange = useCallback((event: any) => {
     const selectedTabIndex = event?.data.state.index ?? 0;
@@ -68,7 +70,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: translation("tabs.home"),
           tabBarIcon: ({ color, focused }) => (
             <IconSymbol size={20} name="home" color={color as IconColor} />
           ),
@@ -80,7 +82,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Profile",
+          title: translation("tabs.profile"),
           tabBarIcon: ({ color }) => (
             <IconSymbol size={20} name="user" color={color as IconColor} />
           ),
@@ -92,7 +94,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="settings"
         options={{
-          title: "Settings",
+          title: translation("tabs.settings"),
           tabBarIcon: ({ color }) => (
             <IconSymbol size={20} name="setting" color={color as IconColor} />
           ),
