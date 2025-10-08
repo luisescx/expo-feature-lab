@@ -15,4 +15,20 @@ export default {
       required: "Campo obrigatório",
     },
   },
+  tabs: {
+    home: "Início",
+    profile: "Perfil",
+    settings: "Configurações",
+  },
+  screens: {
+    taskList: "Lista de tarefas",
+  },
+  home: {
+    cards: {
+      taskList: "Lista de tarefas",
+      uploadImage: "Enviar imagem",
+      map: "Mapa",
+      animations: "Animações",
+    },
+  },
 };

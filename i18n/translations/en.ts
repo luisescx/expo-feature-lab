@@ -15,4 +15,20 @@ export default {
       required: "Required field",
     },
   },
+  tabs: {
+    home: "Home",
+    profile: "Profile",
+    settings: "Settings",
+  },
+  screens: {
+    taskList: "Task list",
+  },
+  home: {
+    cards: {
+      taskList: "Task list",
+      uploadImage: "Upload image",
+      map: "map",
+      animations: "animations",
+    },
+  },
 };
