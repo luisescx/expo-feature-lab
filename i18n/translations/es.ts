@@ -31,4 +31,12 @@ export default {
       animations: "Animaciones",
     },
   },
+  settings: {
+    theme: "Tema",
+    themeDescription: "Elige entre el modo claro u oscuro",
+    language: "Idioma",
+    languageDescription: "Cambia el idioma de la aplicación",
+    logout: "Cerrar sesión",
+    logoutDescription: "Cierra la sesión de tu cuenta",
+  },
 };

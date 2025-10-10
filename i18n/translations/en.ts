@@ -27,8 +27,16 @@ export default {
     cards: {
       taskList: "Task list",
       uploadImage: "Upload image",
-      map: "map",
-      animations: "animations",
+      map: "Map",
+      animations: "Animations",
     },
+  },
+  settings: {
+    theme: "Theme",
+    themeDescription: "Choose between light or dark mode",
+    language: "Language",
+    languageDescription: "Change the app language",
+    logout: "Logout",
+    logoutDescription: "Sign out of your account",
   },
 };
