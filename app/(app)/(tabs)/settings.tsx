@@ -1,57 +1,38 @@
-import {
-  Button,
-  ScrollViewThemed,
-  ThemedText,
-  ThemeToggle,
-} from "@/components/ui";
+import { PressableOption } from "@/components/settings";
+import { ScrollViewThemed } from "@/components/ui";
 import { useTranslation } from "@/hooks/use-translation";
-import { View } from "react-native";
+import { useSessionStore } from "@/stores/session";
 
 export default function SettingsScreen() {
-  const { handleChangeLanguage } = useTranslation();
+  const { translation } = useTranslation();
+  const handleLogout = useSessionStore((state) => state.handleLogout);
 
   return (
-    <ScrollViewThemed className="items-center justify-center">
-      <ThemedText>Settings</ThemedText>
-
-      <View className="mt-4" />
-      <ThemeToggle />
-
-      <View className="mt-4" />
-
-      <Button
-        className="mb-4"
-        onPress={() =>
-          handleChangeLanguage({
-            language: "pt",
-            saveOnStorage: false,
-          })
-        }
-      >
-        Portuguese
-      </Button>
-      <Button
-        className="mb-4"
-        onPress={() =>
-          handleChangeLanguage({
-            language: "en",
-            saveOnStorage: false,
-          })
-        }
-      >
-        English
-      </Button>
-      <Button
-        className="mb-4"
-        onPress={() =>
-          handleChangeLanguage({
-            language: "es",
-            saveOnStorage: false,
-          })
-        }
-      >
-        Spanish
-      </Button>
+    <ScrollViewThemed className="p-0">
+      <PressableOption
+        iconName="moon"
+        title={translation("settings.theme")}
+        description={translation("settings.themeDescription")}
+        onPress={() => {
+          //
+        }}
+      />
+      <PressableOption
+        iconName="italic"
+        title={translation("settings.language")}
+        description={translation("settings.languageDescription")}
+        onPress={() => {
+          //
+        }}
+      />
+      <PressableOption
+        iconName="poweroff"
+        title={translation("settings.logout")}
+        description={translation("settings.logoutDescription")}
+        onPress={async () => {
+          await handleLogout();
+        }}
+      />
     </ScrollViewThemed>
   );
 }
