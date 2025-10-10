@@ -11,8 +11,8 @@ import { ThemedText } from "./themed-text";
 type ButtonColorProps =
   | "primary"
   | "secondary"
-  | "success"
-  | "error"
+  | "positive"
+  | "negative"
   | "warning"
   | "surface";
 
@@ -45,8 +45,8 @@ const lightSolidButton = tv({
     colorType: {
       primary: "bg-light-primary",
       secondary: "bg-light-secondary",
-      success: "bg-light-success",
-      error: "bg-light-error",
+      positive: "bg-light-positive",
+      negative: "bg-light-negative",
       warning: "bg-light-warning",
       surface: "bg-light-background",
     },
@@ -59,8 +59,8 @@ const darkSolidButton = tv({
     colorType: {
       primary: "bg-dark-primary",
       secondary: "bg-dark-secondary",
-      success: "bg-dark-success",
-      error: "bg-dark-error",
+      positive: "bg-dark-positive",
+      negative: "bg-dark-negative",
       warning: "bg-dark-warning",
       surface: "bg-dark-background",
     },
@@ -72,8 +72,8 @@ const solidLightLoadingButton = tv({
     colorType: {
       primary: "bg-light-surface",
       secondary: "bg-light-surface",
-      success: "bg-light-surface",
-      error: "bg-light-surface",
+      positive: "bg-light-surface",
+      negative: "bg-light-surface",
       warning: "bg-light-neutral100",
       surface: "bg-light-neutral100",
     },
@@ -85,8 +85,8 @@ const solidDarkLoadingButton = tv({
     colorType: {
       primary: "bg-dark-neutral100",
       secondary: "bg-dark-neutral100",
-      success: "bg-dark-neutral100",
-      error: "bg-dark-neutral100",
+      positive: "bg-dark-neutral100",
+      negative: "bg-dark-neutral100",
       warning: "bg-dark-background",
       surface: "bg-dark-neutral100",
     },
@@ -111,8 +111,8 @@ const lightSolidLabel = tv({
     colorType: {
       primary: "text-light-surface",
       secondary: "text-light-surface",
-      success: "text-light-surface",
-      error: "text-light-surface",
+      positive: "text-light-surface",
+      negative: "text-light-surface",
       warning: "text-light-neutral100",
       surface: "text-light-neutral100",
     },
@@ -125,8 +125,8 @@ const darkSolidLabel = tv({
     colorType: {
       primary: "text-dark-neutral100",
       secondary: "text-dark-neutral100",
-      success: "text-dark-neutral100",
-      error: "text-dark-neutral100",
+      positive: "text-dark-neutral100",
+      negative: "text-dark-neutral100",
       warning: "text-dark-background",
       surface: "text-dark-neutral100",
     },
@@ -154,8 +154,8 @@ const lightOutlinedButton = tv({
     colorType: {
       primary: "border-light-primary",
       secondary: "border-light-secondary",
-      success: "border-light-success",
-      error: "border-light-error",
+      positive: "border-light-positive",
+      negative: "border-light-negative",
       warning: "border-light-warning",
       surface: "border-light-background",
     },
@@ -165,9 +165,9 @@ const lightOutlinedButton = tv({
       colorType: [
         "primary",
         "secondary",
-        "success",
+        "positive",
         "primary",
-        "error",
+        "negative",
         "warning",
         "surface",
       ],
@@ -182,8 +182,8 @@ const darkOutlinedButton = tv({
     colorType: {
       primary: "border-dark-primary",
       secondary: "border-dark-secondary",
-      success: "border-dark-success",
-      error: "border-dark-error",
+      positive: "border-dark-positive",
+      negative: "border-dark-negative",
       warning: "border-dark-warning",
       surface: "border-dark-background",
     },
@@ -196,8 +196,8 @@ const lightOutlinedLabel = tv({
     colorType: {
       primary: "text-light-primary",
       secondary: "text-light-secondary",
-      success: "text-light-success",
-      error: "text-light-error",
+      positive: "text-light-positive",
+      negative: "text-light-negative",
       warning: "text-light-warning",
       surface: "text-light-background",
     },
@@ -210,8 +210,8 @@ const darkOutlinedLabel = tv({
     colorType: {
       primary: "text-dark-primary",
       secondary: "text-dark-secondary",
-      success: "text-dark-success",
-      error: "text-dark-error",
+      positive: "text-dark-positive",
+      negative: "text-dark-negative",
       warning: "text-dark-warning",
       surface: "text-dark-background",
     },
@@ -223,8 +223,8 @@ const outlinedDarkLoadingButton = tv({
     colorType: {
       primary: "bg-dark-primary",
       secondary: "bg-dark-secondary",
-      success: "bg-dark-success",
-      error: "bg-dark-error",
+      positive: "bg-dark-positive",
+      negative: "bg-dark-negative",
       warning: "bg-dark-warning",
       surface: "bg-dark-background",
     },
@@ -236,8 +236,8 @@ const outlinedLightLoadingButton = tv({
     colorType: {
       primary: "bg-light-primary",
       secondary: "bg-light-secondary",
-      success: "bg-light-success",
-      error: "bg-light-error",
+      positive: "bg-light-positive",
+      negative: "bg-light-negative",
       warning: "bg-light-warning",
       surface: "bg-light-background",
     },

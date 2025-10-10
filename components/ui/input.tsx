@@ -40,8 +40,8 @@ const textErrorMessage = tv({
   base: "mt-1",
   variants: {
     theme: {
-      light: "text-light-error",
-      dark: "text-dark-error",
+      light: "text-light-negative",
+      dark: "text-dark-negative",
     },
   },
 });

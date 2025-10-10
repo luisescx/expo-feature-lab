@@ -28,7 +28,7 @@ const themedText = tv({
 });
 
 export function ThemedText({
-  type,
+  type = "base",
   className,
   style,
   ...rest
