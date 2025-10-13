@@ -15,6 +15,7 @@ export type ThemedViewProps = ScrollViewProps & {
   children: PropsWithChildren;
   edges?: Edges;
   addInsets?: EdgesArray;
+  hasPadding?: boolean;
 };
 
 const safeArea = tv({
@@ -48,12 +49,13 @@ export function ScrollViewThemed({
   children,
   edges = [],
   addInsets = [],
+  hasPadding = true,
   style,
   ...rest
 }: ThemedViewProps) {
   const theme = useThemeStore((state) => state.theme);
 
-  const styleInsets = useThemedInsets(themedSpacing, addInsets);
+  const styleInsets = useThemedInsets(themedSpacing, addInsets, hasPadding);
 
   return (
     <SafeAreaView

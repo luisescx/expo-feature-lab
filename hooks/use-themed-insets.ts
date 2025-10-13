@@ -30,24 +30,29 @@ const handleInsets = (
   spacing: ThemedSpacing,
   addInsets: EdgesArray,
   insets: EdgeInsets,
+  hasPadding?: boolean,
 ) => {
   const style: StyleInsetsProps = {};
 
   if (addInsets.includes("top")) {
     style.paddingTop =
-      (insets.top ?? 0) + (themedSpacingConverter[spacing] ?? 0);
+      (insets.top ?? 0) +
+      (hasPadding ? (themedSpacingConverter[spacing] ?? 0) : 0);
   }
   if (addInsets.includes("bottom")) {
     style.paddingBottom =
-      (insets.bottom ?? 0) + (themedSpacingConverter[spacing] ?? 0);
+      (insets.bottom ?? 0) +
+      (hasPadding ? (themedSpacingConverter[spacing] ?? 0) : 0);
   }
   if (addInsets.includes("right")) {
     style.paddingRight =
-      (insets.right ?? 0) + (themedSpacingConverter[spacing] ?? 0);
+      (insets.right ?? 0) +
+      (hasPadding ? (themedSpacingConverter[spacing] ?? 0) : 0);
   }
   if (addInsets.includes("left")) {
     style.paddingLeft =
-      (insets.left ?? 0) + (themedSpacingConverter[spacing] ?? 0);
+      (insets.left ?? 0) +
+      (hasPadding ? (themedSpacingConverter[spacing] ?? 0) : 0);
   }
 
   return style;
@@ -56,8 +61,9 @@ const handleInsets = (
 export function useThemedInsets(
   spacing: ThemedSpacing,
   edges: EdgesArray = ["top", "bottom"],
+  hasPadding = true,
 ) {
   const insets = useSafeAreaInsets();
 
-  return handleInsets(spacing, edges, insets);
+  return handleInsets(spacing, edges, insets, hasPadding);
 }
