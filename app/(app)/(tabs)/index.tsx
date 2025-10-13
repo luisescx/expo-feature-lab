@@ -10,13 +10,13 @@ export default function HomeScreen() {
   return (
     <ScrollViewThemed themedSpacing="lg">
       <HomeCard
-        title={translation("home.cards.taskList")}
+        title={translation("screens.home.cards.taskList")}
         iconName="unordered-list"
         className="mb-4"
         onPress={() => navigate("/task-list")}
       />
       <HomeCard
-        title={translation("home.cards.uploadImage")}
+        title={translation("screens.home.cards.uploadImage")}
         iconName="camera"
         className="mb-4"
         onPress={() => {
@@ -24,7 +24,7 @@ export default function HomeScreen() {
         }}
       />
       <HomeCard
-        title={translation("home.cards.map")}
+        title={translation("screens.home.cards.map")}
         iconName="environment"
         className="mb-4"
         onPress={() => {
@@ -32,7 +32,7 @@ export default function HomeScreen() {
         }}
       />
       <HomeCard
-        title={translation("home.cards.animations")}
+        title={translation("screens.home.cards.animations")}
         iconName="experiment"
         onPress={() => {
           //

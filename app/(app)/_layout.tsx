@@ -13,7 +13,25 @@ export default function AppLayout() {
       <Stack.Screen
         name="task-list"
         options={{
-          title: translation("screens.taskList"),
+          title: translation("screens.taskList.title"),
+          header: (props: NativeStackHeaderProps) => (
+            <Header {...props} hasGoBackButton />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="theme"
+        options={{
+          title: translation("screens.theme.title"),
+          header: (props: NativeStackHeaderProps) => (
+            <Header {...props} hasGoBackButton />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="language"
+        options={{
+          title: translation("screens.language.title"),
           header: (props: NativeStackHeaderProps) => (
             <Header {...props} hasGoBackButton />
           ),

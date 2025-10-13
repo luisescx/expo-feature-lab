@@ -22,6 +22,6 @@ export const useSessionStore = create<SessionStore>((set) => ({
   },
   handleLogout: async () => {
     set({ isSigned: false });
-    await LocalStorageService.clear();
+    await LocalStorageService.remove(LocalStorageEnum.userAuth);
   },
 }));
