@@ -1,5 +1,6 @@
 import i18n from "@/i18n";
 import { SetLanguage, useLanguageStore } from "@/stores/language";
+import { LocalStorageEnum, LocalStorageService } from "@/utils/storage";
 import { getLocales } from "expo-localization";
 import { useCallback, useMemo } from "react";
 
@@ -26,10 +27,43 @@ export function useTranslation() {
     [setLanguage],
   );
 
+  const handleLanguageOnStorage = useCallback(async () => {
+    const currentLanguageOnStorage = await LocalStorageService.get(
+      LocalStorageEnum.language,
+    );
+
+    return !!currentLanguageOnStorage;
+  }, []);
+
+  const removeFromStorage = useCallback(async () => {
+    await LocalStorageService.remove(LocalStorageEnum.language);
+  }, []);
+
+  const handleDeviceLanguage = useCallback(async () => {
+    const isLanguageOnStorage = await handleLanguageOnStorage();
+
+    if (isLanguageOnStorage) {
+      await removeFromStorage();
+    }
+
+    const supportedLanguage = handleLanguageIsSupported();
+    await handleChangeLanguage({
+      language: supportedLanguage,
+      saveOnStorage: false,
+    });
+  }, [
+    handleLanguageOnStorage,
+    handleLanguageIsSupported,
+    removeFromStorage,
+    handleChangeLanguage,
+  ]);
+
   return {
     translation,
     language,
     handleLanguageIsSupported,
     handleChangeLanguage,
+    handleDeviceLanguage,
+    handleLanguageOnStorage,
   };
 }
