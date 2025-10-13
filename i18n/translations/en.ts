@@ -21,22 +21,46 @@ export default {
     settings: "Settings",
   },
   screens: {
-    taskList: "Task list",
-  },
-  home: {
-    cards: {
-      taskList: "Task list",
-      uploadImage: "Upload image",
-      map: "Map",
-      animations: "Animations",
+    taskList: {
+      title: "Task list",
     },
-  },
-  settings: {
-    theme: "Theme",
-    themeDescription: "Choose between light or dark mode",
-    language: "Language",
-    languageDescription: "Change the app language",
-    logout: "Logout",
-    logoutDescription: "Sign out of your account",
+    theme: {
+      title: "Theme",
+      dark: "Dark mode",
+      light: "Light mode",
+      device: "Device settings",
+      deviceDescription: "The app will use the same settings as your phone.",
+    },
+    language: {
+      title: "Language",
+      english: "English",
+      portuguese: "Portuguese",
+      spanish: "Spanish",
+      device: "Device language",
+      deviceDescription:
+        "The app will use your phone's language if it’s supported.",
+    },
+    home: {
+      cards: {
+        taskList: "Task list",
+        uploadImage: "Upload image",
+        map: "Map",
+        animations: "Animations",
+      },
+    },
+    settings: {
+      theme: "Theme",
+      themeDescription: "Choose between light or dark mode",
+      language: "Language",
+      languageDescription: "Change the app language",
+      logout: "Logout",
+      logoutDescription: "Sign out of your account",
+      logoutActions: {
+        title: "Sign out",
+        subtitle: "Are you sure you want to sign out of your account?",
+        cancel: "Cancel",
+        confirm: "Sign out",
+      },
+    },
   },
 };

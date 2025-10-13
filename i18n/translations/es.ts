@@ -21,22 +21,47 @@ export default {
     settings: "Configuración",
   },
   screens: {
-    taskList: "Lista de tareas",
-  },
-  home: {
-    cards: {
-      taskList: "Lista de tareas",
-      uploadImage: "Subir imagen",
-      map: "Mapa",
-      animations: "Animaciones",
+    taskList: {
+      title: "Lista de tareas",
     },
-  },
-  settings: {
-    theme: "Tema",
-    themeDescription: "Elige entre el modo claro u oscuro",
-    language: "Idioma",
-    languageDescription: "Cambia el idioma de la aplicación",
-    logout: "Cerrar sesión",
-    logoutDescription: "Cierra la sesión de tu cuenta",
+    theme: {
+      title: "Tema",
+      dark: "Modo oscuro",
+      light: "Modo claro",
+      device: "Configuración del dispositivo",
+      deviceDescription:
+        "La aplicación usará la misma configuración que tu teléfono.",
+    },
+    language: {
+      title: "Idioma",
+      english: "Inglés",
+      portuguese: "Portugués",
+      spanish: "Español",
+      device: "Idioma del dispositivo",
+      deviceDescription:
+        "La app usará el idioma de tu dispositivo si es compatible.",
+    },
+    home: {
+      cards: {
+        taskList: "Lista de tareas",
+        uploadImage: "Subir imagen",
+        map: "Mapa",
+        animations: "Animaciones",
+      },
+    },
+    settings: {
+      theme: "Tema",
+      themeDescription: "Elige entre el modo claro u oscuro",
+      language: "Idioma",
+      languageDescription: "Cambia el idioma de la aplicación",
+      logout: "Cerrar sesión",
+      logoutDescription: "Cierra la sesión de tu cuenta",
+      logoutActions: {
+        title: "Cerrar sesión",
+        subtitle: "¿Estás seguro de que quieres cerrar tu sesión?",
+        cancel: "Cancelar",
+        confirm: "Cerrar sesión",
+      },
+    },
   },
 };
