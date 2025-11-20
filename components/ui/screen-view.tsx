@@ -49,6 +49,7 @@ export function ScreenView({
         spacing: themedSpacing,
         class: className,
       })}
+      edges={edges}
       style={[{ ...styleInsets }, style]}
       {...rest}
     />

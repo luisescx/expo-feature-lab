@@ -102,11 +102,11 @@ const Input = React.forwardRef<TextInput, InputProps>(
             {
               "border-light-neutral300/25 bg-light-surface focus:border-light-neutral100":
                 theme === "light" && !fieldHasError,
-              "border-light-error bg-light-surface":
+              "border-light-negative bg-light-surface":
                 theme === "light" && !!fieldHasError,
               "border-dark-neutral300/25 bg-dark-surface focus:border-dark-neutral100":
                 theme === "dark" && !fieldHasError,
-              "border-dark-error bg-dark-surface":
+              "border-dark-negative bg-dark-surface":
                 theme === "dark" && !!fieldHasError,
             },
           )}
