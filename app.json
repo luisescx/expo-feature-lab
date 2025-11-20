@@ -55,7 +55,19 @@
           ]
         }
       ],
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+        }
+      ],
+      [
+        "react-native-permissions",
+        {
+          "iosPermissions": ["Camera"]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
