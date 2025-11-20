@@ -20,6 +20,15 @@ export default function AppLayout() {
         }}
       />
       <Stack.Screen
+        name="my-photos"
+        options={{
+          title: translation("screens.myPhotos.title"),
+          header: (props: NativeStackHeaderProps) => (
+            <Header {...props} hasGoBackButton />
+          ),
+        }}
+      />
+      <Stack.Screen
         name="theme"
         options={{
           title: translation("screens.theme.title"),

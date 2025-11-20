@@ -16,12 +16,10 @@ export default function HomeScreen() {
         onPress={() => navigate("/task-list")}
       />
       <HomeCard
-        title={translation("screens.home.cards.uploadImage")}
+        title={translation("screens.home.cards.myPhotos")}
         iconName="camera"
         className="mb-4"
-        onPress={() => {
-          //
-        }}
+        onPress={() => navigate("/my-photos")}
       />
       <HomeCard
         title={translation("screens.home.cards.map")}
