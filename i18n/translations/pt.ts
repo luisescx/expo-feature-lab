@@ -24,6 +24,18 @@ export default {
     taskList: {
       title: "Lista de tarefas",
     },
+    myPhotos: {
+      title: "Minhas Fotos",
+      noPhotos: {
+        title: "Nenhuma foto ainda",
+        subtitle:
+          "Você ainda não tirou nenhuma foto. Toque no botão abaixo para começar!",
+        button: "Tirar foto",
+      },
+      hasPhotos: {
+        button: "Tirar nova foto",
+      },
+    },
     theme: {
       title: "Tema",
       dark: "Modo escuro",
@@ -44,7 +56,7 @@ export default {
     home: {
       cards: {
         taskList: "Lista de tarefas",
-        uploadImage: "Enviar imagem",
+        myPhotos: "Minhas Fotos",
         map: "Mapa",
         animations: "Animações",
       },
