@@ -148,7 +148,7 @@ export default function MyPhotosScreen() {
             iconName="camera"
             className="w-3/4"
           >
-            {translation("screens.myPhotos.hasPhotos")}
+            {translation("screens.myPhotos.hasPhotos.button")}
           </Button>
         </View>
       )}
