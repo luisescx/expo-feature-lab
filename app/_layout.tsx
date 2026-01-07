@@ -3,9 +3,14 @@ import { Providers } from "@/contexts";
 import { useSessionStore } from "@/stores/session";
 import { useThemeStore } from "@/stores/theme";
 import { customColors } from "@/tailwind.config";
+import { Image } from "expo-image";
 import { SplashScreen, Stack } from "expo-router";
+import { cssInterop } from "nativewind";
+
 import "react-native-reanimated";
 import "../global.css";
+
+cssInterop(Image, { className: "style" });
 
 SplashScreen.preventAutoHideAsync();
 
