@@ -35,6 +35,17 @@ export default {
       hasPhotos: {
         button: "Tirar nova foto",
       },
+      deletePhotosAlert: {
+        title: "Excluir fotos",
+        subtitle: "Deseja remover suas fotos? Essa ação é irreversível.",
+        cancel: "Cancelar",
+        confirm: "Confirmar",
+      },
+      selectedPhotosActions: {
+        selectAll: "Selecionar todas",
+        clearSelection: "Limpar",
+        deleteSelected: "Excluir",
+      },
     },
     theme: {
       title: "Tema",
