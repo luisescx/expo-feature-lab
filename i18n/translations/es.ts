@@ -46,6 +46,11 @@ export default {
         clearSelection: "Limpiar",
         deleteSelected: "Eliminar",
       },
+      takenPicture: {
+        save: "Guardar",
+        retry: "Reintentar",
+        discard: "Descartar",
+      },
     },
     theme: {
       title: "Tema",
