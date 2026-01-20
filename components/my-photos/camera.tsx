@@ -49,6 +49,7 @@ export function Camera({ onCloseCamera, onTakePhoto }: CameraProps) {
           flex: 1,
         }}
         facing={facing}
+        mirror={true}
       />
 
       <Pressable
