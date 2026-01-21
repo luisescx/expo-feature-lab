@@ -1,10 +1,13 @@
 import { PhotoProps } from "@/app/(app)/my-photos";
+import { useThemeStore } from "@/stores/theme";
+import { customColors } from "@/tailwind.config";
 import clsx from "clsx";
 import { Image } from "expo-image";
 import { useCallback, useState } from "react";
 import { Dimensions, Pressable, View } from "react-native";
+import { tv } from "tailwind-variants";
 import { ThemedText } from "../ui";
-import { IconSymbol } from "../ui/icon-symbol";
+import { IconColor, IconSymbol } from "../ui/icon-symbol";
 
 const HORIZONTAL_PADDING = 12;
 const WIDTH = Dimensions.get("window").width - HORIZONTAL_PADDING * 2;
@@ -19,6 +22,32 @@ type RenderPhotoProps = {
   onRemoveSelectedPhotoToDelete: (id: string) => void;
 };
 
+const selectedPhotoBorderContainer = tv({
+  base: "absolute top-0 z-30 w-full rounded-lg border-[2px] opacity-70",
+  variants: {
+    theme: {
+      light: "border-light-primary",
+      dark: "border-dark-primary",
+    },
+  },
+  defaultVariants: {
+    theme: "light",
+  },
+});
+
+const iconViewContainer = tv({
+  base: "absolute -left-2 -top-2 z-50 h-10 w-10 items-center justify-center rounded-full",
+  variants: {
+    theme: {
+      light: "bg-light-primary",
+      dark: "bg-dark-primary",
+    },
+  },
+  defaultVariants: {
+    theme: "light",
+  },
+});
+
 export function RenderPhoto({
   isOnePressSelectToDelete = false,
   photo,
@@ -29,6 +58,8 @@ export function RenderPhoto({
   const { date, id, uri } = photo;
 
   const [textHeightView, setTextHeightView] = useState(0);
+
+  const theme = useThemeStore((state) => state.theme);
 
   const handleOnPress = useCallback(() => {
     if (isPhotoSelected) {
@@ -73,12 +104,26 @@ export function RenderPhoto({
       {isPhotoSelected && (
         <>
           <View
-            className="absolute top-0 z-30 w-full rounded-lg border-[2px] border-blue-600 opacity-70"
+            className={selectedPhotoBorderContainer({
+              theme,
+            })}
             style={{ bottom: textHeightView ?? 0 }}
           />
 
-          <View className="absolute -left-2 -top-2 z-50 h-10 w-10 items-center justify-center rounded-full bg-blue-500">
-            <IconSymbol name="check" size={20} color="text-dark-neutral100" />
+          <View
+            className={iconViewContainer({
+              theme,
+            })}
+          >
+            <IconSymbol
+              name="check"
+              size={20}
+              color={
+                theme === "light"
+                  ? (customColors.light.surface as IconColor)
+                  : (customColors.dark.neutral100 as IconColor)
+              }
+            />
           </View>
         </>
       )}

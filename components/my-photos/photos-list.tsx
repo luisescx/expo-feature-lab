@@ -1,5 +1,6 @@
 import { PhotoProps } from "@/app/(app)/my-photos";
 import { useTranslation } from "@/hooks/use-translation";
+import { useThemeStore } from "@/stores/theme";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Alert,
@@ -9,6 +10,7 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { tv } from "tailwind-variants";
 import { Button, ThemedText } from "../ui";
 import { EmptyPhotos } from "./empty-photos";
 import { RenderPhoto } from "./render-photo";
@@ -18,6 +20,45 @@ type PhotoListProps = {
   onSavedPhotos: (photos: PhotoProps[]) => void;
   onCameraPermission: () => Promise<void>;
 };
+
+const selectedPhotosView = tv({
+  base: "w-full border",
+  variants: {
+    theme: {
+      light: "border-light-primary",
+      dark: "border-dark-primary",
+    },
+  },
+  defaultVariants: {
+    theme: "light",
+  },
+});
+
+const buttonsContainer = tv({
+  base: "absolute w-full items-center p-4",
+  variants: {
+    theme: {
+      light: "bg-light-primary/70",
+      dark: "bg-dark-primary/70",
+    },
+  },
+  defaultVariants: {
+    theme: "light",
+  },
+});
+
+const button = tv({
+  base: "mb-3 w-3/4",
+  variants: {
+    spacing: {
+      hasSpacing: "mb-3",
+      noSpacing: "mb-0",
+    },
+  },
+  defaultVariants: {
+    spacing: "hasSpacing",
+  },
+});
 
 export function PhotosList({
   photos,
@@ -33,6 +74,7 @@ export function PhotosList({
   const [absoluteViewHeight, setAbsoluteViewHeight] = useState(0);
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const theme = useThemeStore((state) => state.theme);
 
   const hasPhotosSelectedToDelete = useMemo(() => {
     return selectedPhotosToDelete?.length > 0;
@@ -147,7 +189,9 @@ export function PhotosList({
               opacity: fadeAnim,
             },
           ]}
-          className="w-full border border-blue-800"
+          className={selectedPhotosView({
+            theme,
+          })}
         >
           <View className="w-full flex-row flex-wrap justify-between p-3">
             <ThemedText>Selected Photos</ThemedText>
@@ -184,7 +228,9 @@ export function PhotosList({
 
       {!!(photos?.length > 0 || hasPhotosSelectedToDelete) && (
         <View
-          className="absolute w-full items-center bg-light-primary/70 p-4"
+          className={buttonsContainer({
+            theme,
+          })}
           style={{ bottom: insets?.bottom ?? 0 }}
           onLayout={(e) => {
             setAbsoluteViewHeight(e?.nativeEvent?.layout?.height ?? 0);
@@ -196,7 +242,7 @@ export function PhotosList({
                 onPress={handleSelectAllPhotos}
                 iconName="check"
                 size="sm"
-                className="mb-3 w-3/4"
+                className={button()}
               >
                 {translation(
                   "screens.myPhotos.selectedPhotosActions.selectAll",
@@ -207,7 +253,7 @@ export function PhotosList({
                 onPress={() => setSelectedPhotosToDelete([])}
                 iconName="clear"
                 size="sm"
-                className="mb-3 w-3/4"
+                className={button()}
                 colorType="secondary"
               >
                 {translation(
@@ -219,7 +265,9 @@ export function PhotosList({
                 onPress={deletePhotosConfirmation}
                 iconName="delete"
                 size="sm"
-                className="w-3/4"
+                className={button({
+                  spacing: "noSpacing",
+                })}
                 colorType="negative"
               >
                 {translation(
@@ -231,7 +279,9 @@ export function PhotosList({
             <Button
               onPress={onCameraPermission}
               iconName="camera"
-              className="w-3/4"
+              className={button({
+                spacing: "noSpacing",
+              })}
             >
               {translation("screens.myPhotos.hasPhotos.button")}
             </Button>

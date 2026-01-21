@@ -1,8 +1,10 @@
+import { useThemeStore } from "@/stores/theme";
 import { CameraCapturedPicture, CameraType, CameraView } from "expo-camera";
 import { useCallback, useRef, useState } from "react";
 import { Dimensions, Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { IconSymbol } from "../ui/icon-symbol";
+import { tv } from "tailwind-variants";
+import { IconColor, IconSymbol } from "../ui/icon-symbol";
 
 const WIDTH_SCREEN = Dimensions.get("screen").width;
 
@@ -10,6 +12,30 @@ type CameraProps = {
   onCloseCamera: () => void;
   onTakePhoto: (photoTaken: CameraCapturedPicture) => Promise<void>;
 };
+
+const pressableButton = tv({
+  variants: {
+    theme: {
+      light: "bg-light-primary",
+      dark: "bg-dark-primary",
+    },
+  },
+  defaultVariants: {
+    theme: "light",
+  },
+});
+
+const iconSymbol = tv({
+  variants: {
+    theme: {
+      light: "text-light-surface",
+      dark: "text-dark-neutral200",
+    },
+  },
+  defaultVariants: {
+    theme: "light",
+  },
+});
 
 export function Camera({ onCloseCamera, onTakePhoto }: CameraProps) {
   const [facing, setFacing] = useState<CameraType>("front");
@@ -19,6 +45,7 @@ export function Camera({ onCloseCamera, onTakePhoto }: CameraProps) {
   });
 
   const { top, bottom } = useSafeAreaInsets();
+  const theme = useThemeStore((state) => state.theme);
 
   const cameraRef = useRef<CameraView>(null);
 
@@ -33,14 +60,25 @@ export function Camera({ onCloseCamera, onTakePhoto }: CameraProps) {
   return (
     <>
       <Pressable
-        className="absolute left-4 z-50 rounded-full bg-dark-primary p-3 active:opacity-70"
+        className={pressableButton({
+          theme,
+          className: "absolute left-4 z-50 rounded-full p-3 active:opacity-70",
+        })}
         style={{
           top: top + 32,
         }}
         hitSlop={12}
         onPress={onCloseCamera}
       >
-        <IconSymbol name="left" color="text-dark-neutral200" size={20} />
+        <IconSymbol
+          name="left"
+          color={
+            iconSymbol({
+              theme,
+            }) as IconColor
+          }
+          size={20}
+        />
       </Pressable>
 
       <CameraView
@@ -53,7 +91,10 @@ export function Camera({ onCloseCamera, onTakePhoto }: CameraProps) {
       />
 
       <Pressable
-        className="absolute z-50 rounded-full bg-dark-primary p-6 active:opacity-70"
+        className={pressableButton({
+          theme,
+          className: "absolute z-50 rounded-full p-6 active:opacity-70",
+        })}
         onLayout={(e) =>
           setCameraButtonSizes({
             width: Math.floor(e?.nativeEvent?.layout?.width ?? 0),
@@ -67,11 +108,22 @@ export function Camera({ onCloseCamera, onTakePhoto }: CameraProps) {
         hitSlop={12}
         onPress={handleTakePhoto}
       >
-        <IconSymbol name="camera" color="text-dark-neutral200" size={32} />
+        <IconSymbol
+          name="camera"
+          color={
+            iconSymbol({
+              theme,
+            }) as IconColor
+          }
+          size={32}
+        />
       </Pressable>
 
       <Pressable
-        className="absolute right-4 z-50 rounded-full bg-dark-primary p-5 active:opacity-70"
+        className={pressableButton({
+          theme,
+          className: "absolute right-4 z-50 rounded-full p-5 active:opacity-70",
+        })}
         style={{
           bottom: bottom + 32 + cameraButtonSizes.height,
         }}
@@ -80,7 +132,15 @@ export function Camera({ onCloseCamera, onTakePhoto }: CameraProps) {
           setFacing((oldFacing) => (oldFacing === "front" ? "back" : "front"))
         }
       >
-        <IconSymbol name="sync" color="text-dark-neutral200" size={28} />
+        <IconSymbol
+          name="sync"
+          color={
+            iconSymbol({
+              theme,
+            }) as IconColor
+          }
+          size={28}
+        />
       </Pressable>
     </>
   );
